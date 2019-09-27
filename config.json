@@ -1,0 +1,20 @@
+{
+  "widgets": [
+    {
+      "title": "Lights 1 On",
+      "action": "1"
+    },
+    {
+      "title": "Lights 1 Off",
+      "action": "2"
+    },
+    {
+      "title": "Lights 2 On",
+      "action": "3"
+    },
+    {
+      "title": "Lights 2 Off",
+      "action": "4"
+    }
+  ]
+}
