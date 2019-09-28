@@ -14,6 +14,14 @@ public class Widget {
     @Expose
     private String action;
 
+    @SerializedName("backgroundColor")
+    @Expose
+    private String backgroundColor;
+
+    @SerializedName("fontColor")
+    @Expose
+    private String fontColor;
+
     public String getTitle() {
         return title;
     }
@@ -28,5 +36,21 @@ public class Widget {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public String getFontColor() {
+        return fontColor;
+    }
+
+    public void setFontColor(String fontColor) {
+        this.fontColor = fontColor;
     }
 }

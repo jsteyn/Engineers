@@ -32,27 +32,42 @@ public class Engineers {
 
     static SerialPort readPort() {
 
+        int serialPortChoice = -2;
         System.out.println("\nUsing Library Version v" + SerialPort.getVersion());
         SerialPort[] ports = SerialPort.getCommPorts();
         System.out.println("\nAvailable Ports:\n");
-        for (int i = 0; i < ports.length; ++i)
+        for (int i = 0; i < ports.length; ++i) {
             System.out.println("   [" + i + "] " + ports[i].getSystemPortName() + ": " + ports[i].getDescriptivePortName() + " - " + ports[i].getPortDescription());
-        SerialPort ubxPort;
-        System.out.print("\nChoose your desired serial port or enter -1 to specify a port directly: ");
-        int serialPortChoice = getInt();
+            if (ports[i].getDescriptivePortName().contains("Arduino"))
+                serialPortChoice = i;
 
-        if (serialPortChoice == -1) {
-            String serialPortDescriptor = "";
-            System.out.print("\nSpecify your desired serial port descriptor: ");
+        }
+        if (serialPortChoice == -2) {
+            System.out.println("There seems to be no Arduino available");
+        } else {
+            SerialPort ubxPort = null;
+            System.out.print("\nChoose your desired serial port or enter -1 to specify a port directly: [" + serialPortChoice + "]");
+            //int input = getInt();
+            String input = getString(Integer.toString(serialPortChoice));
             try {
-                Scanner inputScanner = new Scanner(System.in);
-                serialPortDescriptor = inputScanner.nextLine();
-            } catch (Exception e) {
+                if (serialPortChoice == Integer.valueOf(input))
+                    ubxPort = ports[serialPortChoice];
+                else if (serialPortChoice == -1) {
+                    String serialPortDescriptor = "";
+                    System.out.print("\nSpecify your desired serial port descriptor: ");
+                    try {
+                        Scanner inputScanner = new Scanner(System.in);
+                        serialPortDescriptor = getString("");
+                    } catch (Exception e) {
+                    }
+                    ubxPort = SerialPort.getCommPort(serialPortDescriptor);
+                }
+                return ubxPort;
+            } catch (NumberFormatException e) {
+
             }
-            ubxPort = SerialPort.getCommPort(serialPortDescriptor);
-        } else
-            ubxPort = ports[serialPortChoice];
-        return ubxPort;
+        }
+        return null;
     }
 
     static private void writePort(SerialPort comPort, int sendString) {
@@ -79,5 +94,14 @@ public class Engineers {
         } catch (Exception e) {
         }
         return serialPortChoice;
+    }
+
+    static private String getString(String defaultValue) {
+        String serialPortInput = defaultValue;
+         {
+            Scanner inputScanner = new Scanner(System.in);
+            serialPortInput = inputScanner.nextLine();
+        }
+        return serialPortInput;
     }
 }
