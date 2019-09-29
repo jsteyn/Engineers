@@ -45,27 +45,23 @@ public class Engineers {
         if (serialPortChoice == -2) {
             System.out.println("There seems to be no Arduino available");
         } else {
-            SerialPort ubxPort = null;
+            SerialPort ubxPort;
             System.out.print("\nChoose your desired serial port or enter -1 to specify a port directly: [" + serialPortChoice + "]");
             //int input = getInt();
-            String input = getString(Integer.toString(serialPortChoice));
-            try {
-                if (serialPortChoice == Integer.valueOf(input))
-                    ubxPort = ports[serialPortChoice];
-                else if (serialPortChoice == -1) {
-                    String serialPortDescriptor = "";
-                    System.out.print("\nSpecify your desired serial port descriptor: ");
-                    try {
-                        Scanner inputScanner = new Scanner(System.in);
-                        serialPortDescriptor = getString("");
-                    } catch (Exception e) {
-                    }
-                    ubxPort = SerialPort.getCommPort(serialPortDescriptor);
-                }
-                return ubxPort;
-            } catch (NumberFormatException e) {
+            serialPortChoice = getInt();
 
-            }
+            if (serialPortChoice == -1) {
+                String serialPortDescriptor = "";
+                System.out.print("\nSpecify your desired serial port descriptor: ");
+                try {
+                    Scanner inputScanner = new Scanner(System.in);
+                    serialPortDescriptor = inputScanner.nextLine();
+                } catch (Exception e) {
+                }
+                ubxPort = SerialPort.getCommPort(serialPortDescriptor);
+            } else
+                ubxPort = ports[serialPortChoice];
+            return ubxPort;
         }
         return null;
     }
@@ -96,11 +92,12 @@ public class Engineers {
         return serialPortChoice;
     }
 
-    static private String getString(String defaultValue) {
-        String serialPortInput = defaultValue;
-         {
+    static private String getString() {
+        String serialPortInput = "";
+        try {
             Scanner inputScanner = new Scanner(System.in);
             serialPortInput = inputScanner.nextLine();
+        } catch (Exception e) {
         }
         return serialPortInput;
     }
