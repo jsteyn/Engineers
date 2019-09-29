@@ -43,18 +43,22 @@ void loop() {
     if (inputString.charAt(0) == '1') {
       //      Serial.println("Switch on 1"); // pin 5
       digitalWrite(output5, HIGH);
+      Serial.println("1");
     }
     if (inputString.charAt(0) == '2') {
       //      Serial.println("Switch on 2"); // pin 4
       digitalWrite(output4, HIGH);
+      Serial.println("1");
     }
     if (inputString.charAt(0) == '3') {
       //      Serial.println("Switch off 1");
       digitalWrite(output5, LOW);
+      Serial.println("1");
     }
     if (inputString.charAt(0) == '4') {
       //      Serial.println("Switch off 2");
       digitalWrite(output4, LOW);
+      Serial.println("1");
     }
     if (inputString.charAt(0) == '5') {
       int chk = DHT.read11(DHT11_PIN);
