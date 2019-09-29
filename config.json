@@ -1,51 +1,42 @@
 {
-  "comport": "COM7",
+  "comport": "COM3",
   "columns": 3,
   "rows": 3,
   "widgets": [
     {
-      "title": "Lights 1 On",
+      "title": "Outdoor lights",
       "action": "1",
-      "backgroundColor": "#0000ff"
+      "backgroundColor": "#ffa07a",
+      "fontColor": "#000000",
+      "bytestoread": 11
     },
     {
-      "title": "Lights 2 On",
+      "title": "Indoor lights",
       "action": "2",
-      "backgroundColor": "#ff0000"
+      "backgroundColor": "#9370db",
+      "fontColor": "#ffffff",
+      "bytestoread": 11
     },
     {
-      "title": "Lights 1 Off",
-      "action": "3",
-      "backgroundColor": "#ff3300"
+      "title": "Front door",
+      "action": "7",
+      "backgroundColor": "#b22222",
+      "fontColor": "#ffffff",
+      "bytestoread": 11
     },
-    {
-      "title": "Lights 2 Off",
-      "action": "4",
-      "backgroundColor": "#0000ff"
-    }
-  ,
     {
       "title": "Temperature",
       "action": "5",
-      "backgroundColor": "#00ff00"
-    }
-  ,
+      "backgroundColor": "#00ff00",
+      "fontColor": "#ffffff",
+      "bytestoread": 11
+    },
     {
       "title": "Humidity",
       "action": "6",
-      "backgroundColor": "#0000ff"
-    }
-  ,
-    {
-      "title": "Door Open",
-      "action": "7",
-      "backgroundColor": "#444444"
-    }
-  ,
-    {
-      "title": "Door Close",
-      "action": "8",
-      "backgroundColor": "#00ff44"
+      "backgroundColor": "#0000ff",
+      "fontColor": "#ffffff",
+      "bytestoread": 11
     }
   ]
 }
