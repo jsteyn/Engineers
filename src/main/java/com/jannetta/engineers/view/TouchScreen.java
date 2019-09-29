@@ -8,6 +8,8 @@ import com.jannetta.engineers.model.Widget;
 import com.jannetta.engineers.model.Widgets;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -36,8 +38,6 @@ public class TouchScreen extends JFrame {
             arduinoController = ArduinoController.getInstance(serialPortDescriptor);
             numcols = widgets.getColumns();
             numrows = widgets.getRows();
-            System.out.println("Columns: " + numcols);
-            System.out.println("Rows: " + numrows);
             widgetheight = ((screenheight - 50) / numrows);
             widgetwidth = (screenwidth - 20) / numcols;
             setLayout(null);
@@ -50,7 +50,6 @@ public class TouchScreen extends JFrame {
             for (int row = 0; row < numrows; row++) {
                 for (int column = 0; column < numcols; column++) {
                     int dim = (row * numrows) + column;
-                    System.out.println(dim);
                     String title = "";
                     String action = "";
                     widgetPanels[dim] = new WidgetPanel(arduinoController);
@@ -59,21 +58,22 @@ public class TouchScreen extends JFrame {
                         title = widgets.getWidgets().get(dim).getTitle();
                         action = widgets.getWidgets().get(dim).getAction();
                         widgetPanels[dim].setWidget(widgets.getWidgets().get(dim));
-                        widgetPanels[dim].setBackground(Helpers.hex2Rgb(widgets.getWidgets().get(dim).getBackgroundColor()));
-
+                        widgetPanels[dim].setForeground(Helpers.hex2Rgb(widgets.getWidgets().get(dim).getFontColor()));
+                        widgetPanels[dim].setBytestoread(widgets.getWidgets().get(dim).getBytestoread());
                     } else {
                         Widget widget = new Widget();
                         widgetPanels[dim].setWidget(widget);
-                        widgetPanels[dim].setBackground(colour[dim % colour.length]);
-
                     }
                     widgetPanels[dim].setBounds(column * widgetwidth, row * widgetheight, widgetwidth, widgetheight);
                     widgetPanels[dim].setBorder(
-                            BorderFactory.createCompoundBorder(
-                                    BorderFactory.createCompoundBorder(
-                                            BorderFactory.createTitledBorder(title),
-                                            BorderFactory.createEmptyBorder(5, 5, 5, 5)),
-                                    widgetPanels[dim].getBorder()));
+                            BorderFactory.createTitledBorder(null,
+                                    title,
+                                    TitledBorder.CENTER,
+                                    TitledBorder.TOP,
+                                    new Font("Verdana", Font.BOLD, 12),
+                                    widgetPanels[dim].getForeground())); //BorderFactory.createEmptyBorder(5, 5, 5, 5))
+                    if (dim == numrows * numcols - 1)
+                        widgetPanels[dim].getOutputLabel().setText(widgets.getComport());
                     this.add(widgetPanels[dim]);
                 }
             }
