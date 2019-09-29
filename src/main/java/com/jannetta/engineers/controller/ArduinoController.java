@@ -1,6 +1,9 @@
 package com.jannetta.engineers.controller;
 
+
 import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -23,28 +26,23 @@ public class ArduinoController {
         return arduinoController;
     }
 
-    static public void writePort(int sendString) {
+    static public String writePort(int sendString, int bytestoread, int timeout) {
+        System.out.println("write " + sendString);
         byte[] readBuffer = new byte[2048];
         comPort.openPort();
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 0, 0);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 500, 0);
         OutputStream outputStream = comPort.getOutputStream();
         byte[] s = new byte[2];
-
         s[0] = (byte) String.valueOf(sendString).charAt(0);
         s[1] = (char) '\n';
         try {
             outputStream.write(s, 0, 2);
-        } catch (IOException e) {
-            e.printStackTrace();
+            int numRead = comPort.readBytes(readBuffer, bytestoread);
+        } catch (IOException err) {
+            err.printStackTrace();
         }
-        try {
-            if (comPort.bytesAvailable() > 0) {
-//                    System.out.println("Available: " + ubxPort.bytesAvailable());
-                int numRead = comPort.readBytes(readBuffer, readBuffer.length);
-//                    System.out.println("Read " + numRead + " bytes.");
-                System.out.println(new String(readBuffer));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }}
+        comPort.closePort();
+        return (new String(readBuffer)).trim();
+
+    }
+}
