@@ -16,11 +16,17 @@ public class Widget {
 
     @SerializedName("backgroundColor")
     @Expose
-    private String backgroundColor;
+    private String backgroundColor = "#ffffff";
 
     @SerializedName("fontColor")
     @Expose
-    private String fontColor;
+    private String fontColor = "#000000";
+
+    @SerializedName("bytestoread")
+    @Expose
+    private int bytestoread = 1;
+
+    private String outputStream;
 
     public String getTitle() {
         return title;
@@ -52,5 +58,21 @@ public class Widget {
 
     public void setFontColor(String fontColor) {
         this.fontColor = fontColor;
+    }
+
+    public String getOutputStream() {
+        return outputStream;
+    }
+
+    public void setOutputStream(String outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public int getBytestoread() {
+        return bytestoread;
+    }
+
+    public void setBytestoread(int bytestoread) {
+        this.bytestoread = bytestoread;
     }
 }
