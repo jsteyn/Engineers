@@ -1,6 +1,6 @@
 /*********
-  Rui Santos
-  Complete project details at https://randomnerdtutorials.com
+ * Based on:
+https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
 *********/
 
 #include <WiFi.h>
