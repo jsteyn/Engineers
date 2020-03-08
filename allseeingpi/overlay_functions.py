@@ -5,7 +5,7 @@ from PIL import Image
 from itertools import cycle
 
 # EDIT THESE VALUES ------------------------
-overlays_dir = "/home/pi/allseeingpi/overlays"
+overlays_dir = "./overlays"
 overlays = ['girl', 'cowboy', 'top', 'pink', 'glassesnose', 'moustache', 'sunglasses', 'elvis', 'emo', 'blackhat', 'emo2', 'baseball', 'flowers', 'santa', 'alps', 'mop', 'glasses']
 # ------------------------------------------
 
